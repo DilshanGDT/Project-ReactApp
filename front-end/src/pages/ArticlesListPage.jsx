@@ -1,4 +1,4 @@
-import ArticlesList from "../../../ArticlesList";
+import ArticlesList from "../../ArticlesList";
 import articles from "../article-content";
 
 export default function ArticlesListPage() {
