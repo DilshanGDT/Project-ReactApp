@@ -20,7 +20,7 @@ const routes = [{
   path: '/about',              
   element: <AboutPage />   
 }, {
-  path: '/articles/individual',              
+  path: '/articles/:name', //URL/route parameter  ex - /articles/learn-react             
   element: <ArticlePage />   
 }, {
   path: '/articles',              
