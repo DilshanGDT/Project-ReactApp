@@ -6,7 +6,7 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage';
 import ArticlePage from './pages/ArticlePage';
-import ArticleListPage from './pages/ArticleListPage';
+import ArticleListPage from './pages/ArticlesListPage';
 import Layout from './Layout';
 
 //define : what page we are gonna add to the react dom with specific paths
