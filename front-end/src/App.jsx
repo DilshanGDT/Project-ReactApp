@@ -7,9 +7,13 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage';
 import ArticlePage from './pages/ArticlePage';
 import ArticleListPage from './pages/ArticleListPage';
+import Layout from './Layout';
 
 //define : what page we are gonna add to the react dom with specific paths
 const routes = [{
+  path: '/',
+  element: <Layout />,     //display in all the pages
+  children: [{
   path: '/',              //element path
   element: <HomePage />   //what to display
 }, {
@@ -22,13 +26,14 @@ const routes = [{
   path: '/articles',              
   element: <ArticleListPage />   
 }]
+}]
 
 //create brwoser router
 const router = createBrowserRouter(routes);
 
 function App() {
-  return (
-    <RouterProvider router={router} />    //
+  return (  //we cannot use elements outside the RouterProvider thats why we cannot add NavBar outside
+    <RouterProvider router={router} />    
   )
 }
 
