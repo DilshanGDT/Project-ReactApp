@@ -8,11 +8,13 @@ import AboutPage from './pages/AboutPage';
 import ArticlePage from './pages/ArticlePage';
 import ArticleListPage from './pages/ArticlesListPage';
 import Layout from './Layout';
+import NotFound from './pages/NotFoundPage';
 
 //define : what page we are gonna add to the react dom with specific paths
 const routes = [{
   path: '/',
-  element: <Layout />,     //display in all the pages
+  element: <Layout />,      //display in all the pages
+  errorElement: <NotFound />, //this is also just element but its display only there is an error on a page
   children: [{
   path: '/',              //element path
   element: <HomePage />   //what to display
