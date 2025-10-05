@@ -1,26 +1,36 @@
 import express from 'express';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const app = express();
 
 app.use(express.json());    //to enable request body parsing
 
-const articleInfo = [
-  { name: 'learn-node', upvotes: 0, comments: [] },
-  { name: 'learn-react', upvotes: 0, comments: [] },
-  { name: 'mongodb', upvotes: 0, comments: [] },
-]
+app.get('/api/articles/:name', async (req, res) => {
+    const { name } = req.params;
 
-app.get('/hello', function(req, res) {
-    res.send('Hello');
-})
+    //database connection URI
+    const uri = 'mongodb://localhost:27017';
 
-app.get('/hello/:name', function(req, res) {
-    res.send('Hello ' + req.params.name + ' from the GET method');
-})
+    //creating a new MongoClient
+    const client = new MongoClient(uri, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        }
+    });
 
-app.post('/hello', function(req, res) {
-    res.send('Hello ' + req.body.name + ' from the POST method');
-})
+    //connecting to the database instance
+    await client.connect();
+
+    //accessing the database
+    const db = client.db('full-stack-react-db');
+
+    //create query 
+    const articles = await db.collection('articles').findOne({ name });
+
+    res.json(articles);
+});
 
 app.post('/api/articles/:name/upvote', (req, res) => {
     const article = articleInfo.find(a => a.name === req.params.name);
