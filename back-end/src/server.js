@@ -5,9 +5,9 @@ const app = express();
 app.use(express.json());    //to enable request body parsing
 
 const articleInfo = [
-  { name: 'learn-node', upvotes: 0 },   //3 javascript objects
-  { name: 'learn-react', upvotes: 0 },
-  { name: 'mongodb', upvotes: 0 },
+  { name: 'learn-node', upvotes: 0, comments: [] },
+  { name: 'learn-react', upvotes: 0, comments: [] },
+  { name: 'mongodb', upvotes: 0, comments: [] },
 ]
 
 app.get('/hello', function(req, res) {
@@ -27,6 +27,20 @@ app.post('/api/articles/:name/upvote', (req, res) => {
     article.upvotes += 1;
 
     res.send('Successfully upvoted the article ' + req.params.name + '. It now has ' + article.upvotes + ' upvotes.');
+});
+
+app.post('/api/articles/:name/comments', (req, res) => {
+    const { name } = req.params;
+    const { postedBy, text } = req.body;
+
+    const article = articleInfo.find(a => a.name === name);
+
+    article.comments.push({
+        postedBy,
+        text
+    });
+
+    res.json(article);
 });
 
 app.listen(8000, function() {
