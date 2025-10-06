@@ -5,7 +5,7 @@ import {
 import './App.css'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage';
-import ArticlePage from './pages/ArticlePage';
+import ArticlePage, { loader as articleLoader } from './pages/ArticlePage';
 import ArticleListPage from './pages/ArticlesListPage';
 import Layout from './Layout';
 import NotFound from './pages/NotFoundPage';
@@ -25,11 +25,7 @@ const routes = [{
 }, {
   path: '/articles/:name', //URL/route parameter  ex - /articles/learn-react             
   element: <ArticlePage />,
-  loader: async function() {   //loader function to fetch data before the page load
-    const response = await axios.get('/api/articles/learn-node'); //we can use await because we defined the function as async
-    const { upvotes, comments } = response.data;
-    return { upvotes, comments };  //return the data to the page
-  }
+  loader: articleLoader,
 }, {
   path: '/articles',              
   element: <ArticleListPage />
