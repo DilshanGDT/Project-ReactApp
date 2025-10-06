@@ -9,6 +9,7 @@ import ArticlePage from './pages/ArticlePage';
 import ArticleListPage from './pages/ArticlesListPage';
 import Layout from './Layout';
 import NotFound from './pages/NotFoundPage';
+import axios from 'axios';
 
 //define : what page we are gonna add to the react dom with specific paths
 const routes = [{
@@ -23,10 +24,15 @@ const routes = [{
   element: <AboutPage />   
 }, {
   path: '/articles/:name', //URL/route parameter  ex - /articles/learn-react             
-  element: <ArticlePage />   
+  element: <ArticlePage />,
+  loader: async function() {   //loader function to fetch data before the page load
+    const response = await axios.get('/api/articles/learn-node'); //we can use await because we defined the function as async
+    const { upvotes, comments } = response.data;
+    return { upvotes, comments };  //return the data to the page
+  }
 }, {
   path: '/articles',              
-  element: <ArticleListPage />   
+  element: <ArticleListPage />
 }]
 }]
 
